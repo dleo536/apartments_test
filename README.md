@@ -23,6 +23,8 @@ Process
 
 ---
 
+You can run this from the Actions tab of this repo. Or you can follow below to run locally.
+
 How to Run Locally
 
 ```bash
