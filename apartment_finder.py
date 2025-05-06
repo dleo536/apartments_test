@@ -85,7 +85,7 @@ def find_closest_apartment():
         print(f"Distance: {closest_listing[1]:.2f} miles")
         return closest_listing[0]
     else:
-        print("⚠️ No valid rental addresses found.")
+        print("No valid rental addresses found.")
         return None
 
 
