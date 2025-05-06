@@ -81,9 +81,13 @@ def find_closest_apartment():
     driver.quit()
 
     if closest_listing:
-        print(f"✅ Closest rental: {closest_listing[0]}")
-        print(f"📍 Distance: {closest_listing[1]:.2f} miles")
+        print(f"Closest rental: {closest_listing[0]}")
+        print(f"Distance: {closest_listing[1]:.2f} miles")
         return closest_listing[0]
     else:
         print("⚠️ No valid rental addresses found.")
         return None
+
+
+# if __name__ == "__main__":
+#     find_closest_apartment()

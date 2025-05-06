@@ -38,5 +38,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Run test
-pytest test_apartments.py
+pytest apartments_test.py
 ```
