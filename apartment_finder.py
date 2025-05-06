@@ -8,6 +8,17 @@ def find_closest_apartment():
     from geopy.distance import geodesic
     import time
 
+    from selenium import webdriver
+
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")  # Run without GUI
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--user-data-dir=/tmp/chrome-data")  # <-- avoid conflict
+
     TARGET_ADDRESS = "767 N Eustis St, St Paul, MN 55114"
     geolocator = Nominatim(user_agent="qa_test")
     target_location = geolocator.geocode(TARGET_ADDRESS, timeout=10)
