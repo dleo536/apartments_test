@@ -1,6 +1,6 @@
 About:
 
-This project is a real-world QA automation demo using Python, Selenium, and GitHub Actions CI. Scenario might be generate regression testing necessary to make sure that Apartments.com search function works after new updates. I tried encorporating some geospatial validation for practice purposes.
+This project is an automation demo using Python, Selenium, and GitHub Actions CI. Running through a scenario to generate regression testing necessary to make sure that Apartments.com search function works after new updates. I tried encorporating some geospatial validation for practice purposes.
 
 Utillizing CI GitHub Actions to run test on script after every push.
 
@@ -25,7 +25,7 @@ Process
 - Searches rentals near St Paul, MN
 - Scrapes listings and geocodes each address
 - Finds the closest one to `767 N Eustis St, St Paul, MN`
-- Uses `pytest` to verify the closest listing is **808 Berry St**
+- Uses `pytest` to verify the closest listing is 808 Berry St
 
 ---
 
