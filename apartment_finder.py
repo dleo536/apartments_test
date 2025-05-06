@@ -1,42 +1,26 @@
 def find_closest_apartment():
     from selenium import webdriver
     from selenium.webdriver.common.by import By
-    from selenium.webdriver.chrome.service import Service
     from selenium_stealth import stealth
     from bs4 import BeautifulSoup
     from geopy.geocoders import Nominatim
     from geopy.distance import geodesic
     import time
 
-    from selenium import webdriver
-
+    # Setup headless Chrome options
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")  # Run without GUI
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument("--remote-debugging-port=9222")
-    options.add_argument("--user-data-dir=/tmp/chrome-data")  # <-- avoid conflict
-
-    TARGET_ADDRESS = "767 N Eustis St, St Paul, MN 55114"
-    geolocator = Nominatim(user_agent="qa_test")
-    target_location = geolocator.geocode(TARGET_ADDRESS, timeout=10)
-
-    if not target_location:
-        raise Exception(f"Could not geocode target address: {TARGET_ADDRESS}")
-
-    target_coords = (target_location.latitude, target_location.longitude)
-
-    options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36")
 
-    # service = Service("/Users/dannyleo/Downloads/chromedriver-mac-x64/chromedriver")  # update path
-    
+    # Launch Chrome
     driver = webdriver.Chrome(options=options)
 
+    # Apply stealth
     stealth(driver,
         languages=["en-US", "en"],
         vendor="Google Inc.",
@@ -46,6 +30,15 @@ def find_closest_apartment():
         fix_hairline=True,
     )
 
+    # Geocode target address
+    TARGET_ADDRESS = "767 N Eustis St, St Paul, MN 55114"
+    geolocator = Nominatim(user_agent="qa_test")
+    target_location = geolocator.geocode(TARGET_ADDRESS, timeout=10)
+    if not target_location:
+        raise Exception(f"Could not geocode target address: {TARGET_ADDRESS}")
+    target_coords = (target_location.latitude, target_location.longitude)
+
+    # Search apartments.com
     driver.get("https://www.apartments.com/")
     time.sleep(5)
 
@@ -58,6 +51,7 @@ def find_closest_apartment():
     search_button.click()
     time.sleep(10)
 
+    # Scrape listings
     soup = BeautifulSoup(driver.page_source, "html.parser")
     listings = soup.select(".placard .property-address")
 
@@ -70,7 +64,7 @@ def find_closest_apartment():
                 loc = geolocator.geocode(address, timeout=timeout)
                 if loc:
                     return loc
-            except Exception as e:
+            except Exception:
                 time.sleep(delay)
         return None
 
@@ -89,7 +83,7 @@ def find_closest_apartment():
     if closest_listing:
         print(f"✅ Closest rental: {closest_listing[0]}")
         print(f"📍 Distance: {closest_listing[1]:.2f} miles")
-        return closest_listing[0]  # <-- this is what your test will assert
+        return closest_listing[0]
     else:
         print("⚠️ No valid rental addresses found.")
         return None
