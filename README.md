@@ -2,6 +2,8 @@ About:
 
 This project is a real-world QA automation demo using Python, Selenium, and GitHub Actions CI. Scenario might be generate regression testing necessary to make sure that Apartments.com search function works after new updates. I tried encorporating some geospatial validation for practice purposes.
 
+Utillizing CI GitHub Actions to run YML test on script after every push.
+
 Tech Stack
 
 - Python 3.10
