@@ -1,6 +1,6 @@
 About:
 
-This project is a real-world QA automation demo using Python, Selenium, and GitHub Actions CI. It simulates finding the closest apartment to a given address using Apartments.com and geospatial comparison.
+This project is a real-world QA automation demo using Python, Selenium, and GitHub Actions CI. Scenario might be generate regression testing necessary to make sure that Apartments.com search function works after new updates. I tried encorporating some geospatial validation for practice purposes.
 
 Tech Stack
 
